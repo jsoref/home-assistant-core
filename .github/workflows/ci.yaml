@@ -313,6 +313,10 @@ jobs:
           . venv/bin/activate
           shopt -s globstar
           pre-commit run --verbose --hook-stage manual flake8 --files {homeassistant,tests}/components/${{ needs.changes.outputs.integrations_glob }}/**/*
+      - name: Unregister flake8 problem matcher
+        run: |
+          echo "::remove-matcher owner=flake8-error::"
+          echo "::remove-matcher owner=flake8-warning::"
 
   lint-isort:
     name: Check isort
@@ -412,6 +416,9 @@ jobs:
         run: |
           . venv/bin/activate
           pre-commit run --verbose --hook-stage manual yamllint --all-files --show-diff-on-failure
+      - name: Unregister yamllint problem matcher
+        run: |
+          echo "::remove-matcher owner=yamllint::"
 
       - name: Register check-json problem matcher
         run: |
@@ -420,6 +427,9 @@ jobs:
         run: |
           . venv/bin/activate
           pre-commit run --verbose --hook-stage manual check-json --all-files
+      - name: Unregister check-json problem matcher
+        run: |
+          echo "::remove-matcher owner=check-json::"
 
       - name: Register check executables problem matcher
         run: |
@@ -428,6 +438,9 @@ jobs:
         run: |
           . venv/bin/activate
           pre-commit run --verbose --hook-stage manual check-executables-have-shebangs --all-files
+      - name: Unregister check executables problem matcher
+        run: |
+          echo "::remove-matcher owner=check-executables-have-shebangs::"
 
       - name: Register codespell problem matcher
         run: |
@@ -436,6 +449,9 @@ jobs:
         run: |
           . venv/bin/activate
           pre-commit run --verbose --show-diff-on-failure --hook-stage manual codespell --all-files
+      - name: Unregister codespell problem matcher
+        run: |
+          echo "::remove-matcher owner=codespell::"
 
       - name: Register hadolint problem matcher
         run: |
@@ -448,6 +464,9 @@ jobs:
         uses: docker://hadolint/hadolint:v1.18.2
         with:
           args: hadolint Dockerfile.dev
+      - name: Unregister hadolint problem matcher
+        run: |
+          echo "::remove-matcher owner=hadolint::"
 
       - name: Run bandit (fully)
         if: needs.changes.outputs.test_full_suite == 'true'
@@ -628,6 +647,10 @@ jobs:
           . venv/bin/activate
           python --version
           pylint homeassistant/components/${{ needs.changes.outputs.integrations_glob }}
+      - name: Unregister pylint problem matcher
+        run: |
+          echo "::remove-matcher owner=pylint-error::"
+          echo "::remove-matcher owner=pylint-warning::"
 
   mypy:
     name: Check mypy
@@ -670,6 +693,9 @@ jobs:
           . venv/bin/activate
           python --version
           mypy homeassistant/components/${{ needs.changes.outputs.integrations_glob }}
+      - name: Unregister mypy problem matcher
+        run: |
+          echo "::remove-matcher owner=mypy::"
 
   pytest:
     runs-on: ubuntu-latest
@@ -780,6 +806,13 @@ jobs:
             --durations-min=1 \
             -p no:sugar \
             tests/components/${{ matrix.group }}
+      - name: Unregister Python problem matcher
+        run: |
+          echo "::remove-matcher owner=python::"
+      - name: Unregister pytest slow test problem matcher
+        run: |
+          echo "::remove-matcher owner=python-slow::"
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2.3.1
         with:

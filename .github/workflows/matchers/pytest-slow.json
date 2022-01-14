@@ -1,7 +1,7 @@
 {
   "problemMatcher": [
     {
-      "owner": "python",
+      "owner": "python-slow",
       "pattern": [
         {
           "regexp": "^=+ slowest durations =+$"
