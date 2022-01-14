@@ -507,7 +507,9 @@ jobs:
       - name: Run hassfest
         run: |
           . venv/bin/activate
-          python -m script.hassfest --requirements --action validate
+          python -m script.hassfest --requirements --action generate
+          git diff
+          git diff --quiet
 
   gen-requirements-all:
     name: Check all requirements
@@ -536,7 +538,9 @@ jobs:
       - name: Run gen_requirements_all.py
         run: |
           . venv/bin/activate
-          python -m script.gen_requirements_all validate
+          python -m script.gen_requirements_all generate
+          git diff
+          git diff --quiet
 
   prepare-tests:
     name: Prepare tests for Python ${{ matrix.python-version }}
