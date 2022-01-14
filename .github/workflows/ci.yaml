@@ -3,11 +3,7 @@ name: CI
 # yamllint disable-line rule:truthy
 on:
   push:
-    branches:
-      - dev
-      - rc
-      - master
-  pull_request: ~
+  pull_request:
 
 env:
   CACHE_VERSION: 5
