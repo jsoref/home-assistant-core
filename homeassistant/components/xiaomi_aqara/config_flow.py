@@ -129,15 +129,15 @@ class XiaomiAqaraFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle multiple aqara gateways found."""
         errors = {}
         if user_input is not None:
-            ip_adress = user_input["select_ip"]
-            self.selected_gateway = self.gateways[ip_adress]
+            ip_address = user_input["select_ip"]
+            self.selected_gateway = self.gateways[ip_address]
             self.sid = self.selected_gateway.sid
             return await self.async_step_settings()
 
         select_schema = vol.Schema(
             {
                 vol.Required("select_ip"): vol.In(
-                    [gateway.ip_adress for gateway in self.gateways.values()]
+                    [gateway.ip_address for gateway in self.gateways.values()]
                 )
             }
         )
@@ -168,7 +168,7 @@ class XiaomiAqaraFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
             return self.async_abort(reason="not_xiaomi_aqara")
 
-        # format mac (include semicolns and make lowercase)
+        # format mac (include semicolons and make lowercase)
         mac_address = format_mac(mac_address)
 
         # format sid from mac_address
@@ -191,7 +191,7 @@ class XiaomiAqaraFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             # get all required data
             name = user_input[CONF_NAME]
             key = user_input.get(CONF_KEY)
-            ip_adress = self.selected_gateway.ip_adress
+            ip_address = self.selected_gateway.ip_address
             port = self.selected_gateway.port
             protocol = self.selected_gateway.proto
 
@@ -203,7 +203,7 @@ class XiaomiAqaraFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 valid_key = True
 
             if valid_key:
-                # format_mac, for a gateway the sid equels the mac address
+                # format_mac, for a gateway the sid equals the mac address
                 mac_address = format_mac(self.sid)
 
                 # set unique_id
@@ -214,7 +214,7 @@ class XiaomiAqaraFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(
                     title=name,
                     data={
-                        CONF_HOST: ip_adress,
+                        CONF_HOST: ip_address,
                         CONF_PORT: port,
                         CONF_MAC: mac_address,
                         CONF_INTERFACE: self.interface,
