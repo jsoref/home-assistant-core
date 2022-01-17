@@ -90,7 +90,7 @@ class QSEntity(Entity):
 
     @callback
     def update_packet(self, packet):
-        """Receive update packet from QSUSB. Match dispather_send signature."""
+        """Receive update packet from QSUSB. Match dispatcher_send signature."""
         self.async_write_ha_state()
 
     async def async_added_to_hass(self):
@@ -135,7 +135,7 @@ class QSToggleEntity(QSEntity):
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Qwiskswitch component setup."""
+    """Qwikswitch component setup."""
 
     # Add cmd's to in /&listen packets will fire events
     # By default only buttons of type [TOGGLE,SCENE EXE,LEVEL]

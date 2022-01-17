@@ -117,7 +117,7 @@ class OAuthFixture:
         await self.async_mock_refresh(result, {"code": "abcd"})
 
     async def async_reauth(self, old_data: dict) -> dict:
-        """Initiate a reuath flow."""
+        """Initiate a reauth flow."""
         result = await self.hass.config_entries.flow.async_init(
             DOMAIN, context={"source": config_entries.SOURCE_REAUTH}, data=old_data
         )
@@ -556,7 +556,7 @@ async def test_pubsub_subscriber_config_entry_reauth(hass, oauth, subscriber):
     result = await oauth.async_reauth(old_entry.data)
     await oauth.async_oauth_app_flow(result)
 
-    # Entering an updated access token refreshs the config entry.
+    # Entering an updated access token refreshes the config entry.
     entry = await oauth.async_finish_setup(result, {"code": "1234"})
     entry.data["token"].pop("expires_at")
     assert entry.unique_id == DOMAIN

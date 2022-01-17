@@ -21,7 +21,7 @@ REMOVED = 2
 
 RE_REFERENCE = r"\[\%key:(.+)\%\]"
 
-# Only allow translatino of integration names if they contain non-brand names
+# Only allow translation of integration names if they contain non-brand names
 ALLOW_NAME_TRANSLATION = {
     "cert_expiry",
     "cpuspeed",
@@ -282,7 +282,7 @@ def validate_translation_file(config: Config, integration: Integration, all_stri
 
                 if (
                     integration.domain not in ALLOW_NAME_TRANSLATION
-                    # Only enforce for core because custom integratinos can't be
+                    # Only enforce for core because custom integrations can't be
                     # added to allow list.
                     and integration.core
                     and strings.get("title") == integration.name

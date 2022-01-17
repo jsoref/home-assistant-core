@@ -23,7 +23,7 @@ from tests.common import async_fire_time_changed
 
 
 async def test_presentation(hass: HomeAssistant) -> None:
-    """Test the presenstation of UptimeRobot binary_sensors."""
+    """Test the presentation of UptimeRobot binary_sensors."""
     await setup_uptimerobot_integration(hass)
 
     entity = hass.states.get(UPTIMEROBOT_TEST_ENTITY)
@@ -34,8 +34,8 @@ async def test_presentation(hass: HomeAssistant) -> None:
     assert entity.attributes["target"] == MOCK_UPTIMEROBOT_MONITOR["url"]
 
 
-async def test_unaviable_on_update_failure(hass: HomeAssistant) -> None:
-    """Test entity unaviable on update failure."""
+async def test_unavailable_on_update_failure(hass: HomeAssistant) -> None:
+    """Test entity unavailable on update failure."""
     await setup_uptimerobot_integration(hass)
 
     entity = hass.states.get(UPTIMEROBOT_TEST_ENTITY)

@@ -48,7 +48,7 @@ async def test_cached_event_message(hass):
 
 
 async def test_cached_event_message_with_different_idens(hass):
-    """Test that we cache event messages when the subscrition idens differ."""
+    """Test that we cache event messages when the subscription idens differ."""
 
     events = []
 
@@ -85,7 +85,7 @@ async def test_message_to_json(caplog):
 
     assert json_str == '{"id": 1, "message": "xyz"}'
 
-    json_str2 = message_to_json({"id": 1, "message": _Unserializeable()})
+    json_str2 = message_to_json({"id": 1, "message": _Unserializable()})
 
     assert (
         json_str2
@@ -94,5 +94,5 @@ async def test_message_to_json(caplog):
     assert "Unable to serialize to JSON" in caplog.text
 
 
-class _Unserializeable:
+class _Unserializable:
     """A class that cannot be serialized."""

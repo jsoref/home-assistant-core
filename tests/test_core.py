@@ -193,7 +193,7 @@ async def test_shutdown_calls_block_till_done_after_shutdown_run_callback_thread
     assert stop_calls[-1] == "async_block_till_done"
 
 
-async def test_pending_sheduler(hass):
+async def test_pending_scheduler(hass):
     """Add a coro to pending tasks."""
     call_count = []
 
@@ -687,8 +687,8 @@ async def test_statemachine_remove(hass):
     assert len(events) == 1
 
 
-async def test_statemachine_case_insensitivty(hass):
-    """Test insensitivty."""
+async def test_statemachine_case_insensitivity(hass):
+    """Test insensitivity."""
     events = async_capture_events(hass, EVENT_STATE_CHANGED)
 
     hass.states.async_set("light.BOWL", "off")
@@ -1375,7 +1375,7 @@ async def test_additional_data_in_core_config(hass, hass_storage):
 
 
 async def test_incorrect_internal_external_url(hass, hass_storage, caplog):
-    """Test that we warn when detecting invalid internal/extenral url."""
+    """Test that we warn when detecting invalid internal/external url."""
     config = ha.Config(hass)
 
     hass_storage[ha.CORE_STORAGE_KEY] = {

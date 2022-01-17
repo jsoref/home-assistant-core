@@ -86,7 +86,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 class SmartMeterTexasData:
-    """Manages coordinatation of API data updates."""
+    """Manages coordination of API data updates."""
 
     def __init__(
         self,
@@ -95,7 +95,7 @@ class SmartMeterTexasData:
         account: Account,
         ssl_context: ssl.SSLContext,
     ) -> None:
-        """Initialize the data coordintator."""
+        """Initialize the data coordinator."""
         self._entry = entry
         self.account = account
         websession = aiohttp_client.async_get_clientsession(hass)

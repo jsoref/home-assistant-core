@@ -1211,7 +1211,7 @@ async def test_float_tolerance_values(hass):
 
 
 async def test_float_tolerance_values_2(hass):
-    """Test if dehumidifier turns off when oudside of floating point tolerance values."""
+    """Test if dehumidifier turns off when outside of floating point tolerance values."""
     assert await async_setup_component(
         hass,
         DOMAIN,
@@ -1440,7 +1440,7 @@ async def test_no_restore_state(hass):
     assert state.state == STATE_OFF
 
 
-async def test_restore_state_uncoherence_case(hass):
+async def test_restore_state_incoherence_case(hass):
     """
     Test restore from a strange state.
 

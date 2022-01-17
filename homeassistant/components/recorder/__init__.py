@@ -74,7 +74,7 @@ from .util import (
     dburl_to_path,
     end_incomplete_runs,
     move_away_broken_database,
-    perodic_db_cleanups,
+    periodic_db_cleanups,
     session_scope,
     setup_connection_for_dialect,
     validate_or_move_away_sqlite_database,
@@ -377,7 +377,7 @@ class PurgeTask(RecorderTask):
             # We always need to do the db cleanups after a purge
             # is finished to ensure the WAL checkpoint and other
             # tasks happen after a vacuum.
-            perodic_db_cleanups(instance)
+            periodic_db_cleanups(instance)
             return
         # Schedule a new purge task if this one didn't finish
         instance.queue.put(PurgeTask(self.purge_before, self.repack, self.apply_filter))
@@ -398,12 +398,12 @@ class PurgeEntitiesTask(RecorderTask):
 
 
 @dataclass
-class PerodicCleanupTask(RecorderTask):
+class PeriodicCleanupTask(RecorderTask):
     """An object to insert into the recorder to trigger cleanup tasks when auto purge is disabled."""
 
     def run(self, instance: Recorder) -> None:
         """Handle the task."""
-        perodic_db_cleanups(instance)
+        periodic_db_cleanups(instance)
 
 
 @dataclass
@@ -549,9 +549,9 @@ class Recorder(threading.Thread):
 
     @callback
     def _async_check_queue(self, *_):
-        """Periodic check of the queue size to ensure we do not exaust memory.
+        """Periodic check of the queue size to ensure we do not exhaust memory.
 
-        The queue grows during migraton or if something really goes wrong.
+        The queue grows during migration or if something really goes wrong.
         """
         size = self.queue.qsize()
         _LOGGER.debug("Recorder queue size is: %s", size)
@@ -684,13 +684,13 @@ class Recorder(threading.Thread):
     def async_nightly_tasks(self, now):
         """Trigger the purge."""
         if self.auto_purge:
-            # Purge will schedule the perodic cleanups
+            # Purge will schedule the periodic cleanups
             # after it completes to ensure it does not happen
             # until after the database is vacuumed
             purge_before = dt_util.utcnow() - timedelta(days=self.keep_days)
             self.queue.put(PurgeTask(purge_before, repack=False, apply_filter=False))
         else:
-            self.queue.put(PerodicCleanupTask())
+            self.queue.put(PeriodicCleanupTask())
 
     @callback
     def async_periodic_statistics(self, now):

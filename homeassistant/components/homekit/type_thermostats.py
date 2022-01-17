@@ -340,7 +340,7 @@ class Thermostat(HomeAccessory):
                     f"{CHAR_COOLING_THRESHOLD_TEMPERATURE} to {char_values[CHAR_COOLING_THRESHOLD_TEMPERATURE]}°C"
                 )
                 high = char_values[CHAR_COOLING_THRESHOLD_TEMPERATURE]
-                # If the device doesn't support TARGET_TEMPATURE
+                # If the device doesn't support TARGET_TEMPERATURE
                 # this can happen
                 if high < low:
                     low = high - HEAT_COOL_DEADBAND
@@ -349,7 +349,7 @@ class Thermostat(HomeAccessory):
                     f"{CHAR_HEATING_THRESHOLD_TEMPERATURE} to {char_values[CHAR_HEATING_THRESHOLD_TEMPERATURE]}°C"
                 )
                 low = char_values[CHAR_HEATING_THRESHOLD_TEMPERATURE]
-                # If the device doesn't support TARGET_TEMPATURE
+                # If the device doesn't support TARGET_TEMPERATURE
                 # this can happen
                 if low > high:
                     high = low + HEAT_COOL_DEADBAND
@@ -473,15 +473,15 @@ class Thermostat(HomeAccessory):
 
         # Update current humidity
         if CHAR_CURRENT_HUMIDITY in self.chars:
-            current_humdity = new_state.attributes.get(ATTR_CURRENT_HUMIDITY)
-            if isinstance(current_humdity, (int, float)):
-                self.char_current_humidity.set_value(current_humdity)
+            current_humidity = new_state.attributes.get(ATTR_CURRENT_HUMIDITY)
+            if isinstance(current_humidity, (int, float)):
+                self.char_current_humidity.set_value(current_humidity)
 
         # Update target humidity
         if CHAR_TARGET_HUMIDITY in self.chars:
-            target_humdity = new_state.attributes.get(ATTR_HUMIDITY)
-            if isinstance(target_humdity, (int, float)):
-                self.char_target_humidity.set_value(target_humdity)
+            target_humidity = new_state.attributes.get(ATTR_HUMIDITY)
+            if isinstance(target_humidity, (int, float)):
+                self.char_target_humidity.set_value(target_humidity)
 
         # Update cooling threshold temperature if characteristic exists
         if self.char_cooling_thresh_temp:
