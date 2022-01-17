@@ -566,7 +566,7 @@ async def test_duplicate_removal(hass, mqtt_mock, caplog):
 
 
 async def test_cleanup_device(hass, device_reg, entity_reg, mqtt_mock):
-    """Test discvered device is cleaned up when removed from registry."""
+    """Test discovered device is cleaned up when removed from registry."""
     data = (
         '{ "device":{"identifiers":["0AFFD2"]},'
         '  "state_topic": "foobar/sensor",'
@@ -726,7 +726,7 @@ async def test_discovery_expansion_3(hass, mqtt_mock, caplog):
     await hass.async_block_till_done()
     assert hass.states.get("switch.DiscoveryExpansionTest1") is None
     # Make sure the malformed availability data does not trip up discovery by asserting
-    # there are schema valdiation errors in the log
+    # there are schema validation errors in the log
     assert (
         "voluptuous.error.MultipleInvalid: expected a dictionary @ data['availability'][0]"
         in caplog.text
