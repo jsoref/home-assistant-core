@@ -1,4 +1,4 @@
-"""Config flow for Transmission Bittorent Client."""
+"""Config flow for Transmission Bittorrent Client."""
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -38,7 +38,7 @@ DATA_SCHEMA = vol.Schema(
 
 
 class TransmissionFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle Tansmission config flow."""
+    """Handle Transmission config flow."""
 
     VERSION = 1
 
