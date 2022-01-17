@@ -37,7 +37,7 @@ HUMIDIFIERS: dict[str, TuyaHumidifierEntityDescription] = {
     "cs": TuyaHumidifierEntityDescription(
         key=DPCode.SWITCH,
         dpcode=(DPCode.SWITCH, DPCode.SWITCH_SPRAY),
-        humidity=DPCode.DEHUMIDITY_SET_VALUE,
+        humidity=DPCode.DEHUMIDIFY_SET_VALUE,
         device_class=HumidifierDeviceClass.DEHUMIDIFIER,
     ),
     # Humidifier
@@ -89,7 +89,7 @@ class TuyaHumidifierEntity(TuyaEntity, HumidifierEntity):
         device_manager: TuyaDeviceManager,
         description: TuyaHumidifierEntityDescription,
     ) -> None:
-        """Init Tuya (de)humidier."""
+        """Init Tuya (de)humidifier."""
         super().__init__(device, device_manager)
         self.entity_description = description
         self._attr_unique_id = f"{super().unique_id}{description.key}"
