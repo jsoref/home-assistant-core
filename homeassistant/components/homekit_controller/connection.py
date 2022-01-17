@@ -107,7 +107,7 @@ class HKDevice:
         # A list of callbacks that turn HK characteristics into entities
         self.char_factories = []
 
-        # The platorms we have forwarded the config entry so far. If a new
+        # The platforms we have forwarded the config entry so far. If a new
         # accessory is added to a bridge we may have to load additional
         # platforms. We don't want to load all platforms up front if its just
         # a lightbulb. And we don't want to forward a config entry twice
@@ -492,7 +492,7 @@ class HKDevice:
         results = await self.pairing.put_characteristics(characteristics)
 
         # Feed characteristics back into HA and update the current state
-        # results will only contain failures, so anythin in characteristics
+        # results will only contain failures, so anything in characteristics
         # but not in results was applied successfully - we can just have HA
         # reflect the change immediately.
 
